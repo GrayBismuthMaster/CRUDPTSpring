@@ -3,6 +3,10 @@ package com.leninvalenzuelapt.prueba.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leninvalenzuelapt.prueba.dto.LibroDTO;
@@ -34,16 +39,9 @@ public class LibroController {
         this.errorHandler = errorHandler;
     }
 
-    @GetMapping
-    public ResponseEntity<List<LibroDTO>> getAllLibros() {
-        List<Libro> libros = libroService.getAllLibros();
-        List<LibroDTO> libroDTOs = new ArrayList<>();
-        for (Libro libro : libros) {
-            LibroDTO libroDTO = new LibroDTO();
-            libroDTO.updateFromLibro(libro);
-            libroDTOs.add(libroDTO);
-        }
-        return ResponseEntity.ok(libroDTOs);
+      @GetMapping
+    public Page<Libro> getAllLibros(Pageable pageable) {
+        return libroService.getAllLibros(pageable);
     }
 
     @GetMapping("/{id}")

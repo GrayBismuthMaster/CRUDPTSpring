@@ -1,3 +1,4 @@
 -> Crear base de datos biblioteca
 -> Inserción de método allowedOriginPatterns para pruebas en local
 -> Adición de excepciones
+-> Adición de paginación
